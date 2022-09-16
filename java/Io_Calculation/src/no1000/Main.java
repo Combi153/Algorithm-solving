@@ -1,4 +1,4 @@
-package io_calculation;
+package no1000;
 
 import java.util.Scanner;
 
