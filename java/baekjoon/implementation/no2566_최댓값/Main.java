@@ -7,6 +7,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
+
+    private static final int ROW_SIZE = 9;
+    private static final int INDEX_ADJUSTMENT = 1;
+    private static final int INITIAL_VALUE = 0;
+    private static final String DELIMITER = " ";
     private final BufferedReader bufferedReader;
 
     public Main(BufferedReader bufferedReader) {
@@ -23,7 +28,7 @@ public class Main {
 
     private List<List<Integer>> readMatrix() throws IOException {
         List<List<Integer>> matrix = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < ROW_SIZE; i++) {
             matrix.add(readRowValues());
         }
         return matrix;
@@ -31,22 +36,22 @@ public class Main {
 
     private List<Integer> readRowValues() throws IOException {
         String line = bufferedReader.readLine();
-        return Arrays.stream(line.split(" "))
+        return Arrays.stream(line.split(DELIMITER))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
 
     private Map<Integer, List<Integer>> findMaxValueAndPosition(List<List<Integer>> matrix) {
         Map<Integer, List<Integer>> maxValueAndPosition = new HashMap<>();
-        int matrixMax = 0;
-        int row = 0;
-        int column = 0;
-        for (int i = 0; i < matrix.size(); i++) {
+        int matrixMax = INITIAL_VALUE;
+        int row = INITIAL_VALUE;
+        int column = INITIAL_VALUE;
+        for (int i = 0; i < ROW_SIZE; i++) {
             int rowMax = Collections.max(matrix.get(i));
             if (matrixMax <= rowMax) {
                 matrixMax = rowMax;
-                row = i + 1;
-                column = matrix.get(i).indexOf(matrixMax) + 1;
+                row = i + INDEX_ADJUSTMENT;
+                column = matrix.get(i).indexOf(matrixMax) + INDEX_ADJUSTMENT;
             }
         }
         maxValueAndPosition.put(matrixMax, List.of(row, column));
@@ -61,7 +66,7 @@ public class Main {
     private String makePositionMessage(List<Integer> rowAndColumn) {
         return rowAndColumn.stream()
                 .map(String::valueOf)
-                .collect(Collectors.joining(" "));
+                .collect(Collectors.joining(DELIMITER));
     }
 
     public static void main(String[] args) throws IOException {
