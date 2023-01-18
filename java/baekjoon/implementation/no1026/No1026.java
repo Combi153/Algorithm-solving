@@ -1,4 +1,4 @@
-package date1004_implementation.no1026;
+package implementation.no1026;
 
 /*
 길이가 N인 정수 배열 A와 B가 있다. n, 배열 A, 배열 B가 입력된다.

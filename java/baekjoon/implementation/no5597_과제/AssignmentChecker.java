@@ -1,4 +1,4 @@
-package date1004_implementation.no5597_과제;
+package implementation.no5597_과제;
 
 import java.io.BufferedReader;
 import java.io.IOException;

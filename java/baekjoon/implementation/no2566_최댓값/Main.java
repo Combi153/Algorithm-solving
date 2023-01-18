@@ -1,4 +1,4 @@
-package date1004_implementation.no2566_최댓값;
+package implementation.no2566_최댓값;
 
 import java.io.BufferedReader;
 import java.io.IOException;

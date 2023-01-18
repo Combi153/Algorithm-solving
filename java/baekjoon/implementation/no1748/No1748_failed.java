@@ -1,4 +1,4 @@
-package date1004_implementation.no1748;
+package implementation.no1748;
 
 import java.io.BufferedReader;
 import java.io.IOException;

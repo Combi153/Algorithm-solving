@@ -1,4 +1,4 @@
-package date1004_implementation.no1629;
+package implementation.no1629;
 
 import java.util.Scanner;
 

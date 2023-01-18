@@ -1,4 +1,4 @@
-package date1004_implementation.no2738_행렬덧셈;
+package implementation.no2738_행렬덧셈;
 
 import java.io.BufferedReader;
 import java.io.IOException;
