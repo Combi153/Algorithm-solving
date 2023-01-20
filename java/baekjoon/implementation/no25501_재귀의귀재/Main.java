@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Main {
+public class Main{
 
     private final BufferedReader bufferedReader;
     private int count;
@@ -13,20 +13,23 @@ public class Main {
         this.bufferedReader = bufferedReader;
     }
 
-    public void countNumberOfCall() throws IOException {
-        int time = Integer.parseInt(bufferedReader.readLine());
-        for (int i = 0; i < time; i++) {
-            this.count = 0;
+    public void findPalindromeAndCountNumberOfCalls() throws IOException {
+        int number = readNumberOfTest();
+        for (int i = 0; i < number; i++) {
             String word = readWord();
             System.out.println(isPalindrome(word) + " " + count);
         }
+    }
+
+    private int readNumberOfTest() throws IOException {
+        return Integer.parseInt(bufferedReader.readLine());
     }
 
     public String readWord() throws IOException {
         return bufferedReader.readLine();
     }
 
-    public int recursion(String s, int l, int r){
+    private int recursion(String s, int l, int r){
         this.count++;
         if(l >= r) {
             return 1;
@@ -39,13 +42,13 @@ public class Main {
         }
     }
 
-    public int isPalindrome(String s){
-        this.count++;
+    private int isPalindrome(String s){
+        this.count = 0;
         return recursion(s, 0, s.length()-1);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         Main main = new Main(new BufferedReader(new InputStreamReader(System.in)));
-        main.countNumberOfCall();
+        main.findPalindromeAndCountNumberOfCalls();
     }
 }
