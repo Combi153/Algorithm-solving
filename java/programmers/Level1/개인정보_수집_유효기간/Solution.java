@@ -5,12 +5,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Solution {
     public static int[] solution(String today, String[] terms, String[] privacies) {
         List<Integer> answer = new ArrayList<>();
-        List<Integer> day = Arrays.stream(today.split("\\.")).map(Integer::valueOf).collect(Collectors.toList());
+        int todayDays = getDays(today);
+        System.out.println("todayDays = " + todayDays);
 
         Map<String, Integer> termMap = new HashMap<>();
         for (String m : terms) {
@@ -22,41 +22,27 @@ public class Solution {
             String x = privacies[i];
             String[] ss = x.split(" ");
 
-            List<Integer> xday = Arrays.stream(ss[0].split("\\.")).map(Integer::valueOf)
-                    .collect(Collectors.toList());
-            String xterm = ss[1];
+            int xdays = getDays(ss[0]) - 1;
+            xdays += termMap.get(ss[1]) * 28;
 
-            int m = termMap.get(xterm) + xday.get(1);
-
-            int toD;
-            int toM;
-            int toY;
-
-            if (xday.get(2) == 1) {
-                toD = 28;
-                m -= 1;
-            } else {
-                toD = xday.get(2) - 1;
-            }
-            toM = m % 12;
-            if (toM == 0) {
-                toM = 12;
-                toY = xday.get(0) + (m / 12) - 1;
-            } else {
-                toY = xday.get(0) + (m / 12);
-            }
-
-            if (toY < day.get(0) ||
-                    toY == day.get(0) && toM < day.get(1) ||
-                    toY == day.get(0) && toM == day.get(1) && toD < day.get(2)) {
+            if (todayDays > xdays) {
                 answer.add(i + 1);
             }
-            System.out.println(i + 1 + ":" + toY + "." + toM + "." + toD);
+            System.out.println(i + 1 + " : " + xdays);
         }
 
         return answer.stream()
                 .mapToInt(Integer::intValue)
                 .toArray();
+    }
+
+    private static int getDays(String date) {
+        String[] split = date.split("\\.");
+
+        int days = Integer.parseInt(split[0]) * 12 * 28;
+        days += Integer.parseInt(split[1]) * 28;
+        days += Integer.parseInt(split[2]);
+        return days;
     }
 
     public static void main(String[] args) {
