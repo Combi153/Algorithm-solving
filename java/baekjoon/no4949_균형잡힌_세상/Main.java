@@ -18,39 +18,32 @@ public class Main {
                 break;
             }
 
-            Stack<Integer> fstack = new Stack<>();
-            Stack<Integer> sstack = new Stack<>();
-            Stack<Integer> bstack = new Stack<>();
+            Stack<Character> stack = new Stack<>();
 
             for (char c : l.toCharArray()) {
-                if (c == '(') {
-                    sstack.push(1);
-                    fstack.push(1);
+                if (c == '(' || c == '[') {
+                    stack.push(c);
                     continue;
                 }
-                if (c == '[') {
-                    bstack.push(2);
-                    fstack.push(2);
-                    continue;
-                }
+
                 if (c == ')') {
-                    if (sstack.isEmpty() || fstack.isEmpty() || fstack.pop() == 2) {
-                        sstack.push(1);
+                    if (stack.isEmpty() || stack.peek() != '(') {
+                        stack.push(c);
                         break;
                     }
-                    sstack.pop();
+                    stack.pop();
                     continue;
                 }
                 if (c == ']') {
-                    if (bstack.isEmpty() || fstack.isEmpty() || fstack.pop() == 1) {
-                        bstack.push(2);
+                    if (stack.isEmpty() || stack.peek() != '[') {
+                        stack.push(c);
                         break;
                     }
-                    bstack.pop();
+                    stack.pop();
                 }
             }
 
-            if (sstack.isEmpty() && bstack.isEmpty()) {
+            if (stack.isEmpty()) {
                 bw.write("yes" + System.lineSeparator());
             } else {
                 bw.write("no" + System.lineSeparator());
