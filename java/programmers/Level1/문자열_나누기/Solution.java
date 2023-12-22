@@ -3,40 +3,34 @@ package programmers.Level1.문자열_나누기;
 public class Solution {
     public static int solution(String s) {
         int answer = 0;
+        char x = '1';
+        int count = 0;
 
-        for (int i = 0; i < s.length(); i++) {
-            char a = s.charAt(i);
-
-            int xcnt = 1;
-            int ycnt = 0;
-
-            if (i == s.length() - 1) {
-                answer++;
-                break;
+        for (char c : s.toCharArray()) {
+            if (x == '1') {
+                x = c;
+                count++;
+                continue;
+            } else if (x != c) {
+                count--;
+            } else {
+                count++;
             }
 
-            for (int j = i + 1; j < s.length(); j++) {
-                char b = s.charAt(j);
-
-                i = j;
-                if (a == b) {
-                    xcnt++;
-                } else {
-                    ycnt++;
-                }
-
-                if (j == s.length() - 1 || xcnt == ycnt) {
-                    answer++;
-                    break;
-                }
+            if (count == 0) {
+                x = '1';
+                answer++;
             }
         }
 
+        if (count > 0) {
+            answer++;
+        }
         return answer;
     }
 
     public static void main(String[] args) {
-        int solution = Solution.solution("abccxc");
+        int solution = Solution.solution("aaacccccxc");
         System.out.println("solution = " + solution);
     }
 }
