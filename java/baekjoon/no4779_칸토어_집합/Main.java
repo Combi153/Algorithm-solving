@@ -1,37 +1,53 @@
 package baekjoon.no4779_칸토어_집합;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 public class Main {
 
-    public static String cantor(String n) {
-        if (n.length() < 2) {
-            return n;
+    public static void cantor(boolean[] x, int start, int end) {
+        if (end - start < 2) {
+            return;
         }
 
-        int length = n.length();
-        int v = length / 3;
+        int v = (end - start) / 3;
+        int d1 = start + v;
+        int d2 = end - v;
 
-        int d1 = length - (v * 2);
-        int d2 = d1 + v;
-        int d3 = d2 + v;
+        for (int i = d1; i < d2; i++) {
+            x[i] = true;
+        }
 
-        return cantor(n.substring(0, d1)) + n.substring(d1, d2).replaceAll("-", " ") + cantor(n.substring(d2, d3));
+        cantor(x, start, d1);
+        cantor(x, d2, end);
     }
 
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         String s;
         while ((s = br.readLine()) != null) {
-            int n = Integer.parseInt(s);
-            String x = "-".repeat((int) Math.pow(3, n));
-            System.out.println(cantor(x));
-        }
+            int n = (int) Math.pow(3, Integer.parseInt(s));
+            boolean[] x = new boolean[n];
+            cantor(x, 0, x.length);
 
+            for (boolean b : x) {
+                if (b) {
+                    bw.write(" ");
+                    continue;
+                }
+                bw.write("-");
+            }
+            bw.newLine();
+            bw.flush();
+        }
+        
         br.close();
+        bw.close();
     }
 }
