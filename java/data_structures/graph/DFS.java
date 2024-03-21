@@ -23,10 +23,6 @@ public class DFS {
             {1, 2}
     };
 
-    public static void main(String[] args) {
-        dfs(1);
-    }
-
     static void dfs(int nodeIndex) {
         visited[nodeIndex] = true;
 
@@ -37,5 +33,9 @@ public class DFS {
                 dfs(node);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        dfs(1);
     }
 }
