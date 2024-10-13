@@ -11,23 +11,15 @@ public class Solution {
         }
 
         int i = 0;
-        while (true) {
+        while (scovilles.size() > 1 && scovilles.peek() < K) {
             int minScoville = scovilles.poll();
-            if (scovilles.isEmpty() && minScoville < K) {
-                i = -1;
-                break;
-            }
-            if (minScoville >= K) {
-                break;
-            }
             int nextMinScovill = scovilles.poll();
-            if (nextMinScovill == 0) {
-                i = -1;
-                break;
-            }
             int mixedScoville = minScoville + (nextMinScovill * 2);
             scovilles.add(mixedScoville);
             i++;
+        }
+        if (scovilles.peek() < K) {
+            return -1;
         }
         return i;
     }
