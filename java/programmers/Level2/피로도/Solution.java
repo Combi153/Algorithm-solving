@@ -2,35 +2,21 @@ package programmers.Level2.피로도;
 
 public class Solution {
 
-    public int max = 0;
+    public int answer = 0;
 
-    private void dfs(int k, int[][] dungeons, int depth, boolean[] visited, int count) {
-        if (depth == dungeons.length) {
-            if (count > max) {
-                max = count;
-            }
-            return;
-        }
-
+    private void dfs(int k, int[][] dungeons, int depth, boolean[] visited) {
         for (int i = 0; i < dungeons.length; i++) {
-            if (!visited[i]) {
+            if (!visited[i] && k >= dungeons[i][0]) {
                 visited[i] = true;
-                int min = dungeons[i][0];
-                int con = dungeons[i][1];
-
-                if (k >= min) {
-                    dfs(k - con, dungeons, depth + 1, visited, count + 1);
-                } else {
-                    dfs(k, dungeons, depth + 1, visited, count);
-                }
-
+                dfs(k - dungeons[i][1], dungeons, depth + 1, visited);
                 visited[i] = false;
             }
         }
+        answer = Math.max(answer, depth);
     }
 
     public int solution(int k, int[][] dungeons) {
-        dfs(k, dungeons, 0, new boolean[dungeons.length], 0);
-        return max;
+        dfs(k, dungeons, 0, new boolean[dungeons.length]);
+        return answer;
     }
 }
