@@ -1,8 +1,5 @@
 package leetcode.reverse_linked_list;
 
-import java.util.Stack;
-
-
 public class Solution {
     public static class ListNode {
         int val;
@@ -29,22 +26,16 @@ public class Solution {
     }
 
     public ListNode reverseList(ListNode head) {
-        ListNode pointerNode = head;
-        Stack<ListNode> stack = new Stack<>();
+        ListNode past = null;
+        ListNode current = head;
 
-        while (pointerNode != null) {
-            stack.add(pointerNode);
-            pointerNode = pointerNode.next;
+        while (current != null) {
+            ListNode next = current.next;
+
+            current.next = past;
+            past = current;
+            current = next;
         }
-
-        ListNode dummyHead = new ListNode();
-        ListNode pointerNode2 = dummyHead;
-
-        while (!stack.isEmpty()) {
-            ListNode node = stack.pop();
-            pointerNode2.next = new ListNode(node.val, null);
-            pointerNode2 = pointerNode2.next;
-        }
-        return dummyHead.next;
+        return past;
     }
 }
